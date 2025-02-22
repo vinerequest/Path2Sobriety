@@ -50,20 +50,28 @@ function TherapyBot() {
   };
 
   return (
-    <div>
-      <h2>Talk to Your Therapy Bot</h2>
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="How are you feeling?"
-      />
-      <button onClick={handleMessage}>Send</button>
-      <p>{response}</p>
-      <h3>Previous Chats</h3>
-      <ul>
+    <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h2 className="text-2xl font-semibold text-indigo-600 mb-4">Talk to Your Therapy Bot</h2>
+      <div className="flex mb-4">
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="How are you feeling?"
+          className="w-full p-2 border rounded-l focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <button
+          onClick={handleMessage}
+          className="bg-indigo-500 text-white py-2 px-4 rounded-r hover:bg-indigo-600 transition duration-300"
+        >
+          Send
+        </button>
+      </div>
+      <p className="text-gray-700 mb-4">{response || 'Your response will appear here...'}</p>
+      <h3 className="text-xl font-semibold text-gray-800 mb-2">Previous Chats</h3>
+      <ul className="list-disc pl-5 text-gray-600">
         {chats.map(chat => (
-          <li key={chat.id}>
-            You: {chat.message} | Bot: {chat.response} | Time: {chat.timestamp.toLocaleString()}
+          <li key={chat.id} className="mb-2">
+            You: <span className="font-medium">{chat.message}</span> | Bot: <span className="font-medium">{chat.response}</span> | Time: {new Date(chat.timestamp.seconds * 1000).toLocaleString()}
           </li>
         ))}
       </ul>
