@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { auth, db } from '../firebase'; // Adjust the import path as needed
+import { auth, db } from '../firebase'; // Correct for src/components/
 import { collection, query, orderBy, limit, onSnapshot, addDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom'; // Import for navigation
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
 
 function TherapyBot() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser); // Update state when user logs in or out
+      setUser(currentUser);
     });
 
     if (user) {
@@ -35,7 +36,7 @@ function TherapyBot() {
       };
     }
 
-    return () => unsubscribeAuth(); // Clean up even if no user
+    return () => unsubscribeAuth();
   }, [user]);
 
   const handleSend = async (e) => {
@@ -47,6 +48,16 @@ function TherapyBot() {
         timestamp: new Date().toISOString(),
       });
       setMessage('');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log('User logged out');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
     }
   };
 
@@ -67,24 +78,61 @@ function TherapyBot() {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
       <h2 className="text-2xl font-bold mb-4">Therapy Bot</h2>
+      <div className="mb-4">
+        <p className="mb-2 text-gray-600">Here’s a helpful video for your recovery journey:</p>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/5Og1N-BVSwg?si=cWL-IdYVV8eb72uP"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="w-full max-w-2xl aspect-video rounded-lg shadow-md"
+        ></iframe>
+      </div>
       <nav className="mb-4 space-y-2">
         <button
-          onClick={() => navigate('/login')}
+          onClick={handleLogout}
           className="bg-gray-300 p-2 rounded hover:bg-gray-400"
         >
-          Back to Login
-        </button>
-        <button
-          onClick={() => navigate('/recovery-plans')}
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          View Recovery Plans
+          Log Out
         </button>
         <button
           onClick={() => navigate('/progress')}
           className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
         >
           View Progress
+        </button>
+        <button
+          onClick={() => navigate('/discussion')}
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Discussion Board
+        </button>
+        <button
+          onClick={() => navigate('/homeless-resources')}
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Homeless Resources
+        </button>
+        <button
+          onClick={() => navigate('/tracker')}
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Sobriety Tracker
+        </button>
+        <button
+          onClick={() => navigate('/daily-tip')}
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Daily Tip
+        </button>
+        <button
+          onClick={() => navigate('/profile')}
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Profile
         </button>
       </nav>
       <div className="h-64 overflow-y-auto mb-4 border rounded p-2">

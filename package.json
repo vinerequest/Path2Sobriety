@@ -2,15 +2,33 @@
   "name": "path2sobriety",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://path2sobriety.org",
   "dependencies": {
+    "axios": "^1.7.9",
     "chart.js": "^4.4.8",
     "firebase": "^11.3.1",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.22.3",
-    "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-router-dom": "^7.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4",
+    "@svgr/webpack": "^6.5.1",
+    "resolve-url-loader": "^5.0.0",
+    "workbox-webpack-plugin": "^7.1.0",
+    "browserslist": "^4.23.3",
+    "cross-spawn": "^7.0.3",
+    "html-minifier": "^4.0.0",
+    "ip": "^2.0.1",
+    "loader-utils": "^3.3.1",
+    "node-notifier": "^10.0.1",
+    "request": "^2.88.2",
+    "semver": "^7.6.3",
+    "sockjs": "^0.3.24",
+    "terser": "^5.31.6",
+    "tough-cookie": "^4.1.4",
+    "webpack-dev-middleware": "^5.3.4",
+    "yargs-parser": "^21.1.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -37,11 +55,10 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "customize-cra": "^1.0.0",
-    "postcss": "^8.4.38",
-    "react-app-rewired": "^2.2.1",
+    "postcss": "^8.4.44",
+    "react-app-rewired": "2.2.1",
     "tailwindcss": "^3.4.17"
-  },
-  "node": "20.18.3"
+  }
 }
